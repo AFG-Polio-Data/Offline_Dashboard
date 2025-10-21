@@ -38,17 +38,12 @@ server <- function(input, output, session) {
   })
   
   
-  user_roles <- fetchAdminData(odk_url <- "https://emro-polio-odk.org/v1/projects/2/forms/apmis_dashboard_admin_user_enrollment.svc/Submissions",
-                               username <- "baertlein.luke@gmail.com",
-                               password <- "%123Emro2024")
-  
-  
   # Reactive expression to check if the user is an admin
   is_admin <- reactive({
-    toupper(user_id) %in% toupper(user_roles$admin_users)
+    FALSE
   })
   is_data_manager <- reactive({
-    toupper(user_id) %in% toupper(user_roles$data_managers)
+    TRUE
   })
   
   # Make 'is_admin' value available in the UI
