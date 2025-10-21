@@ -1,0 +1,107 @@
+/* APP settings--------------------------------------------------*/
+   /* custom.css */
+
+/*Sidebar style */
+
+.sidebar {
+    background-color: #0d6938; /* Background color for the sidebar */
+}
+
+
+.sidebar-menu li.active a {
+    background-color: #e9ecef; /* Background color for active menu item */
+    color: #007bff; /* Text color for active menu item */
+}
+
+/* Style adjustments for the dashboard sidebar */
+.skin-black .main-sidebar {
+  /* Adjust the sidebar background color and font color */
+  background-color: #0d6938;
+  color: #fff;
+/*   font-weight: bold;*/
+}
+
+.skin-black .sidebar-menu>li.active>a {
+                color: #fff;
+                font-weight: bold;
+               background: rgb(240, 143, 62);
+               /* border-bottom: 4px solid orange;*/
+                width: 100%;
+            }
+.nav-tabs>li a:hover {
+  background-color: transparent;
+  border-bottom: 4px solid transparent;
+  height:40px;
+   font-weight: bold;
+}
+
+.skin-black .sidebar-menu>li:hover>a {
+                color: #fff;
+                background: #709775;
+                width: 100%;
+                 font-weight: bold;
+            }
+            
+.custom-box {
+  background-color: #9EC3AF !important; /* Adjust color as needed */
+  border-color: #9EC3AF !important; /* Adjust border color if applicable */
+  margin: 6px 0; /* Adjust top and bottom margins */
+  padding: 6px; /* Add padding for better readability */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  text-align: center; /* Center text */
+  font-size: 18px; /* Set font size for values */
+}
+
+/* CSS for responsive sizing */
+.custom-box2 {
+  height: calc(65vh - 80px); /* Adjust height as needed */
+}
+
+.custom-valuebox {
+  background-color: #9EC3AF !important; /* Adjust color as needed */
+  border-color: #9EC3AF !important; /* Adjust border color if applicable */
+  margin: 6px 0; /* Adjust top and bottom margins */
+  padding: 6px; /* Add padding for better readability */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  text-align: center; /* Center text */
+}
+
+.custom-valuebox .value {
+  font-size: 18px; /* Set font size for values */
+  font-weight: bold; /* Make value text bold */
+  color: black; /* Set font color for values */
+  margin: 0;
+}
+
+.custom-valuebox .label {
+  font-size: 14px; /* Set font size for labels */
+  color: black; /* Set font color for labels */
+  font-weight: normal; /* Set font weight for labels to normal */
+  margin: 0;
+}
+
+.custom-valuebox_title {
+  background-color: #9EC3AF !important; /* Adjust color as needed */
+  border-color: #9EC3AF !important; /* Adjust border color if applicable */
+  margin: 6px 0; /* Adjust top and bottom margins */
+  padding: 6px; /* Add padding for better readability */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  text-align: center; /* Center text */
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
+  margin: 0;
+}          
