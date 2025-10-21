@@ -1,7 +1,8 @@
 # ------------------------------------------------------------------
 # update_data.R
-# Pulls the latest datasets from EMRO Analytics and saves them into
-# revised_app/data/
+# Downloads all required datasets from EMRO Analytics
+# Saves to revised_app/data/, creating the folder if missing.
+# Username is fixed as 'cdc_emro'; password is prompted.
 # ------------------------------------------------------------------
 
 local({
@@ -20,13 +21,16 @@ local({
   library(httr)
   library(getPass)
   
-  # ---- Ask for credentials ----
-  cat("Please enter your EMRO Analytics credentials.\n")
-  username <- readline(prompt = "Username: ")
+  # ---- Credentials ----
+  username <- "cdc_emro"
+  cat("Logging in as:", username, "\n")
   password <- getPass::getPass("Password: ")
   
-  # ---- Ensure output directory exists ----
-  if (!dir.exists(dest_dir)) dir.create(dest_dir, recursive = TRUE)
+  # ---- Ensure destination folder exists ----
+  if (!dir.exists(dest_dir)) {
+    cat("Creating data folder:", dest_dir, "\n")
+    dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
+  }
   
   # ---- Download loop ----
   for (f in files) {
@@ -35,15 +39,35 @@ local({
     
     cat("\nDownloading:", f, "...\n")
     
-    resp <- GET(
-      url = data_url,
-      authenticate(username, password),
-      write_disk(dest_file, overwrite = TRUE),
-      timeout(120)
-    )
+    tmp_file <- tempfile(fileext = ".Rds")
     
-    if (status_code(resp) == 200) {
-      cat("✓ Successfully saved:", normalizePath(dest_file), "\n")
+    resp <- tryCatch({
+      GET(
+        url = data_url,
+        authenticate(username, password),
+        write_disk(tmp_file, overwrite = TRUE),
+        timeout(120)
+      )
+    }, error = function(e) e)
+    
+    if (inherits(resp, "error")) {
+      cat("✗ Error downloading", f, ":", resp$message, "\n")
+    } else if (status_code(resp) == 200 && file.exists(tmp_file)) {
+      # Try rename first; if it fails (e.g., different drive), fall back to copy
+      ok <- tryCatch({
+        file.rename(tmp_file, dest_file)
+      }, warning = function(w) FALSE, error = function(e) FALSE)
+      
+      if (!ok) {
+        file.copy(tmp_file, dest_file, overwrite = TRUE)
+        unlink(tmp_file)
+      }
+      
+      if (file.exists(dest_file)) {
+        cat("✓ Saved:", normalizePath(dest_file), "\n")
+      } else {
+        cat("✗ Failed to save", f, "\n")
+      }
     } else {
       cat("✗ Failed to download", f, "(status:", status_code(resp), ")\n")
     }
